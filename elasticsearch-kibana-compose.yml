@@ -1,7 +1,9 @@
-version: '2'
+version: '2.2'
 
 volumes:
   esdata1:
+    driver: local
+  kbdata1:
     driver: local
 
 networks:
@@ -9,7 +11,7 @@ networks:
 
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.5.3
+    build: ./elasticsearch-5.5.3-with-plugins
     environment:
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
@@ -27,6 +29,7 @@ services:
       - 9300:9300
     networks:
       - esnet
+
   kibana:
     image: docker.elastic.co/kibana/kibana:5.5.3
     environment:
@@ -40,4 +43,6 @@ services:
     depends_on:
       - elasticsearch
     networks:
-        - esnet
+      - esnet
+    volumes:
+      - kbdata1:/usr/share/kibana/data
