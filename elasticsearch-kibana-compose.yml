@@ -11,7 +11,7 @@ networks:
 
 services:
   elasticsearch:
-    build: ./elasticsearch-5.5.3-with-plugins
+    build: ./elasticsearch-5.2.2-with-plugins
     environment:
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
@@ -31,7 +31,7 @@ services:
       - esnet
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:5.5.3
+    image: docker.elastic.co/kibana/kibana:5.2.2
     environment:
       - SERVER_NAME=localhost
       - ELASTICSEARCH_URL=http://elasticsearch:9200
